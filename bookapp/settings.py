@@ -143,8 +143,8 @@ LOGIN_URL = 'home'
 
 # Настройки почтового сервера
 EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_HOST_USER = 'dashenka-ostapenko@mail.ru'
-EMAIL_HOST_PASSWORD = 'zD3fsam2F3yN9rWk7rex'
+EMAIL_HOST_USER = 'mypochta@mail.ru'
+EMAIL_HOST_PASSWORD = 'myparol'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'dashenka-ostapenko@mail.ru'
+DEFAULT_FROM_EMAIL = 'mypochta@mail.ru'
