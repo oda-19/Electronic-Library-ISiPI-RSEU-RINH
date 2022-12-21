@@ -1,0 +1,39 @@
+{% extends 'bookstore/base.html' %}
+{% load static %}
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/detailbook.css' %}" media="screen">
+
+    <section class="u-clearfix u-valign-middle-md u-valign-middle-sm u-section-1">
+        <div class="u-container-style u-product u-white u-product-1" >
+            <div class="u-container-layout u-valign-top-md u-valign-top-xs u-container-layout-1">
+                <h2 class="u-product-control u-text u-text-default u-text-1">
+                    <a class="u-product-title-link" href="">{{ object.title }}</a>
+                </h2>
+                <div style="width: 286px; height: 334px;">
+                    <img alt="" class="u-image u-image-default u-product-control u-image-1" style="width: auto; height: 100%;" src="{{ object.cover.url }}">
+                </div>
+                <p class="u-text u-text-default u-text-2">Автор:</p>
+                <p class="u-text u-text-3">{{ object.author }}</p>
+                <p class="u-text u-text-default u-text-4">Издательство:</p>
+                <p class="u-text u-text-5">{{ object.publisher }}</p>
+                <p class="u-text u-text-6">{{ object.year }}</p>
+                <p class="u-text u-text-default u-text-7">Год:</p>
+                <p class="u-text u-text-default u-text-8">Жанр:</p>
+                <p class="u-text u-text-9">{{ object.ganr }}</p>
+                {% if user.is_librarian or user.is_publisher %}
+                    <a href="{{ book.pdf.url }}" style="border-radius: 5px;" target="_blank" class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-black u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-product-control u-text-active-white u-text-black u-text-hover-white u-white u-btn-1" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">Читать</a>
+                    <a href="{{ book.pdf.url }}" style="border-radius: 5px;" download class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-black u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-product-control u-text-active-white u-text-hover-white u-white u-btn-2" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">Скачать</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="u-clearfix u-custom-color-10 u-section-2">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <h3 class="u-custom-font u-text u-text-default u-text-font u-text-white u-text-1">Аннотация</h3>
+            <p class="u-align-justify-md u-align-justify-sm u-align-justify-xs u-text u-text-white u-text-2">{{ object.desc }}</p>
+        </div>
+    </section>
+
+{% endblock %}

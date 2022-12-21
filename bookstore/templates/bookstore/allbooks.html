@@ -1,0 +1,67 @@
+{% extends 'bookstore/base.html' %}
+{% load static %}
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/allbooks.css' %}" media="screen">
+
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.dataTables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    <section class="u-clearfix u-section-1">
+        <div class="u-clearfix u-sheet u-sheet-1" style="position: relative; top: 30px;">
+            <div class="u-align-center u-container-style u-products-item u-repeater-item">
+                <div class="card-body">
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {% if books %}
+                            {% for book in books %}
+                                <div class="col">
+                                    <div class="card text mb-3 h-100" style="max-width: 250px; height: auto; background: #c3ac81; color: #ffffff">
+                                        <a href="{% url 'uvbook' book.pk %}" style="color: #000000; font-weight: bold">
+                                            <img alt="{{ book.title}}" class="card-img-top" src="{{ book.cover.url }}" style="width: 247px; height: 270px;">
+                                        </a>
+                                        <div class="card-body" style="margin: auto; margin-bottom: -20px;">
+                                            <h6 class="card-title" style="color: #000000; font-weight: bold">{{ book.title }}</h6>
+                                            <p class="card-text" style="color: #000000; font-weight: bold">{{ book.author }}</p>
+                                        </div>
+                                        {% if user.is_publisher %}
+                                            <div class="card-footer">
+                                                <a href="{{ book.pdf.url }}" target="_blank" style="border-radius: 5px; margin: auto;" class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-black u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-text-active-white u-text-hover-white u-white u-btn-1">Читать</a>
+                                                <a href="{{ book.pdf.url }}" style="border-radius: 5px; margin: auto; margin-top: 10px;" download class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-black u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-text-active-white u-text-hover-white u-white u-btn-1">Скачать</a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    {% if is_paginated %}
+                        <ul class="pagination" style="font-size: large; float: right;">
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                            {% endif %}
+                            {% for i in paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

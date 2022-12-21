@@ -1,0 +1,21 @@
+{% extends 'bookstore/base.html' %}
+{% load static %}
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/about.css' %}" media="screen">
+
+    <section class="u-clearfix u-custom-color-10 u-section-1">
+        <div class="u-expanded-width u-shape u-shape-rectangle u-white u-shape-1"></div>
+        <div class="u-align-center u-container-align-center-xs u-container-style u-group u-radius-5 u-shape-round u-white u-group-1">
+            <div class="u-container-layout u-valign-top u-container-layout-1">
+                <h2 class="u-align-center-xs u-text u-text-default u-text-1">О проекте</h2>
+                <p class="u-align-center-xs u-text u-text-2">
+                    <span style="font-style: italic;"></span>Представляю Вашему вниманию Электронную библиотеку кафедры Информационных систем и прикладной информатики "РГЭУ (РИНХ)". Этот веб-сервис создан студенткой 3 курса направления "Прикладная информатика" факультата "Компьютерных технологий и информационной безопасности" Ростовского государственного экономического университета (РИНХ) Остапенко Дарьей Андреевной.<br>
+                    <br>Данная ЭБ постоянно пополняется электронными версиями изданий. По каждой книге выводятся полные библиографические данные, а также можно посмотреть обложку книги, ознакомиться с аннотацией, содержанием и отдельными главами. Вид электронной книги полностью соответствует ее бумажному оригиналу, включая графики, иллюстрации, схемы и номера страниц.<br>
+                    <br>Для преподавателей университета предусмотрена возможность формирования книжной полки библиотеки. Доступ к электронным книгам осуществляется для всех студентов, которые зарегистрировались на сайте ЭБ. Читать книгу можно как в браузере, так и скачав ее.<br>
+                </p>
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}

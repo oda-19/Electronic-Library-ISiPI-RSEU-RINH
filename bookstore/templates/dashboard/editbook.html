@@ -1,0 +1,100 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/addbook.css' %}" media="screen">
+
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+
+    <section class="u-clearfix u-section-1" style="min-height: 1100px;">
+        <div class="u-clearfix u-sheet u-sheet-1" style="height: 300px;">
+            <h2 class="u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">Редактировать книгу</h2>
+            <div class="u-custom-color-11 u-form u-form-1" style="border-radius: 5px;">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form" style="padding: 30px;">
+                        <div class="u-form-group u-label-top">
+                            <label for="title" class="u-label u-label-1">Название</label>
+                            <input type="text" value="{{ object.title }}" style="border-radius: 5px;" id="title" name="title" class="u-input u-input-rectangle u-text-black u-white u-input-1" required="required">
+                        </div>
+                        <div class="u-form-email u-form-group u-label-top u-form-group-2">
+                            <label for="author" class="u-label u-label-2">Автор</label>
+                            <input type="text" value="{{ object.author }}" style="border-radius: 5px;" id="author" name="author" class="u-input u-input-rectangle u-text-black u-white u-input-2" required="required">
+                        </div>
+                        <div class="u-form-group u-label-top">
+                            <label for="publisher" class="u-label u-label-3">Издательство</label>
+                            <input type="text" value="{{ object.publisher }}" style="border-radius: 5px;" id="publisher" name="publisher" class="u-input u-input-rectangle u-text-black u-white u-input-3" required="required">
+                        </div>
+                        <div class="u-form-email u-form-group u-label-top">
+                            <label for="year" class="u-label u-label-4">Год</label>
+                            <input type="text" value="{{ object.year }}" style="border-radius: 5px;" id="year" name="year" class="u-input u-input-rectangle u-text-black u-white u-input-4" required="">
+                        </div>
+                        <div class="u-form-group u-form-select u-label-top">
+                            <label for="ganr" class="u-label u-label-5">Жанр</label>
+                            <div class="u-form-select-wrapper">
+                                <select id="ganr" style="border-radius: 5px;" name="ganr" class="u-input u-input-rectangle u-text-black u-white u-input-5" required="required">
+                                    <option value="Выберите жанр">Выберите жанр</option>
+                                    {% if object.ganr == "Прикладная и научно-популярная литература" %}
+                                        <option value="Прикладная и научно-популярная литература" selected>Прикладная и научно-популярная литература</option>
+                                    {% else %}
+                                        <option value="Прикладная и научно-популярная литература">Прикладная и научно-популярная литература</option>
+                                    {% endif %}
+                                    {% if object.ganr == "Универсально-справочная литература" %}
+                                        <option value="Универсально-справочная литература" selected>Универсально-справочная литература</option>
+                                    {% else %}
+                                        <option value="Универсально-справочная литература">Универсально-справочная литература</option>
+                                    {% endif %}
+                                    {% if object.ganr == "Художественная литература" %}
+                                        <option value="Художественная литература" selected>Художественная литература</option>
+                                    {% else %}
+                                        <option value="Художественная литература">Художественная литература</option>
+                                    {% endif %}
+                                    {% if object.ganr == "Журналы" %}
+                                        <option value="Журналы" selected>Журналы</option>
+                                    {% else %}
+                                        <option value="Журналы">Журналы</option>
+                                    {% endif %}
+                                    {% if object.ganr == "Учебно-методическая литература" %}
+                                        <option value="Учебно-методическая литература" selected>Учебно-методическая литература</option>
+                                    {% else %}
+                                        <option value="Учебно-методическая литература">Учебно-методическая литература</option>
+                                    {% endif %}
+                                    {% if object.ganr == "Учебные пособия" %}
+                                        <option value="Учебные пособия" selected>Учебные пособия</option>
+                                    {% else %}
+                                        <option value="Учебные пособия">Учебные пособия</option>
+                                    {% endif %}
+                                    {% if object.ganr == "Монография" %}
+                                        <option value="Монография" selected>Монография</option>
+                                    {% else %}
+                                        <option value="Монография">Монография</option>
+                                    {% endif %}
+                                </select>
+                                <svg class="u-caret u-caret-svg u-text-black" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                            </div>
+                        </div>
+                        <div class="u-form-group u-label-top u-form-group-6">
+                            <label for="desc" class="u-label u-label-6">Аннотация</label>
+                            <textarea type="text" style="border-radius: 5px;" id="desc" name="desc" class="u-input u-input-rectangle u-text-black u-white u-input-6" required="required">{{ object.desc }} </textarea>
+                        </div>
+                        <div class="u-form-group u-label-top u-form-group-7">
+                            <label for="cover" class="u-label u-label-7">Обложка</label>
+                            <input type="file" id="myFile" name="cover" enctype="multipart/form-data">
+                            <br>На данный момент: {{ object.cover }}
+                        </div>
+                        <div class="u-form-group u-label-top u-form-group-7">
+                            <label for="pdf" class="u-label u-label-7">Файл</label>
+                            <input type="file" id="myFile" name="pdf" enctype="multipart/form-data">
+                            <br>На данный момент: {{ object.pdf }}
+                        </div>
+                        <div class="u-align-center u-form-group u-form-submit u-label-top">
+                            <a style="border-radius: 5px;" class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-grey-80 u-border-hover-custom-color-10 u-btn u-btn-submit u-button-style u-hover-custom-color-10 u-text-active-white u-text-black u-text-hover-white u-white u-btn-1">Сохранить</a>
+                            <input type="submit" {% if request.path == '/new' %} value="Add" {% else %} value="Update" {% endif %} class="u-form-control-hidden">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}

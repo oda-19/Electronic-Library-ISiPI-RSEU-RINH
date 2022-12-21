@@ -1,0 +1,75 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/detailuser.css' %}" media="screen">
+
+    <section class="u-clearfix u-section-1" id="sec-dc30">
+        <div class="u-container-style u-product u-white u-product-1">
+            <div class="u-container-layout u-valign-top u-container-layout-1">
+                <h2 class="u-product-control u-text u-text-default u-text-1">
+                    <a class="u-product-title-link" href="">
+                        {% if object.is_admin or object.is_superuser %}
+                            Администратор
+                        {% elif object.is_publisher %}
+                            Студент
+                        {% elif object.is_librarian %}
+                            Преподаватель
+                        {% endif %}</a>
+                </h2>
+                <div style="width: 286px; height: 334px; position: center;">
+                    <img alt="" class="u-image u-image-default u-product-control u-image-1" style="width: 100%; height: auto;" src="{{ object.foto.url }}">
+                </div>
+                <div style="position: relative; top: 25px;">
+                    <p class="u-text u-text-default u-text-2">Фамилия:</p>
+                    <p class="u-text u-text-3">
+                        {% if object.last_name %}
+                            {{ object.last_name }}
+                        {% else %}
+                            -
+                        {% endif %}</p>
+                    <p class="u-text u-text-4">
+                        {% if object.first_name %}
+                            {{ object.first_name }}
+                        {% else %}
+                            -
+                        {% endif %}</p>
+                    <p class="u-text u-text-default-lg u-text-default-sm u-text-default-xl u-text-default-xs u-text-5">Имя:</p>
+                    <p class="u-text u-text-default u-text-6">Отчество:</p>
+                    <p class="u-text u-text-7">
+                        {% if object.patronymic %}
+                            {{ object.patronymic }}
+                        {% else %}
+                            -
+                        {% endif %}</p>
+                    <p class="u-text u-text-8">
+                        {% if object.birth_day %}
+                            {{ object.birth_day }}
+                        {% else %}
+                            -
+                        {% endif %}</p>
+                    <p class="u-text u-text-default u-text-9">Дата рождения:</p>
+                    <p class="u-text u-text-default u-text-10">Email</p>
+                    <p class="u-text u-text-11">
+                        {% if object.email %}
+                            {{ object.email }}
+                        {% else %}
+                            -
+                        {% endif %}</p>
+                    <p class="u-text u-text-default u-text-12">Логин:</p>
+                    <p class="u-text u-text-13">
+                        {% if object.username %}
+                            {{ object.username }}
+                        {% else %}
+                            -
+                        {% endif %}</p>
+                    <a href="{% url 'aduser' user.pk %}" class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-black u-border-hover-custom-color-10 u-btn u-btn-round u-button-style u-hover-custom-color-10 u-product-control u-radius-5 u-text-active-white u-text-black u-text-hover-white u-white u-btn-1">Удалить</a>
+                    {% if object.is_superuser %}
+                        <a style="position: relative; top: -80px; left: 330px;" href="http://127.0.0.1:8000/admin/" class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-black u-border-hover-custom-color-10 u-btn u-btn-round u-button-style u-hover-custom-color-10 u-product-control u-radius-5 u-text-active-white u-text-black u-text-hover-white u-white u-btn-1">Админ панель</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

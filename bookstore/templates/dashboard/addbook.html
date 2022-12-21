@@ -1,0 +1,75 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/addbook.css' %}" media="screen">
+
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+
+    <section class="u-clearfix u-section-1">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <h2 class="u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">Добавить книгу</h2>
+            <div class="u-custom-color-11 u-form u-form-1" style="border-radius: 5px;">
+                <form {% if user.is_librarian %}
+                    action="{% url 'labook' %}"
+                {% elif user.is_admin or user.is_superuser %}
+                    action="{% url 'aabook' %}"
+                {% endif %}
+                        method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form" style="padding: 30px;">
+                        <div class="u-form-group u-label-top">
+                            <label for="title" class="u-label u-label-1">Название</label>
+                            <input type="text" style="border-radius: 5px;" id="title" name="title" class="u-input u-input-rectangle u-text-black u-white u-input-1" required="required">
+                        </div>
+                        <div class="u-form-email u-form-group u-label-top u-form-group-2">
+                            <label for="author" class="u-label u-label-2">Автор</label>
+                            <input type="text" style="border-radius: 5px;" id="author" name="author" class="u-input u-input-rectangle u-text-black u-white u-input-2" required="required">
+                        </div>
+                        <div class="u-form-group u-label-top">
+                            <label for="publisher" class="u-label u-label-3">Издательство</label>
+                            <input type="text" style="border-radius: 5px;" id="publisher" name="publisher" class="u-input u-input-rectangle u-text-black u-white u-input-3" required="required">
+                        </div>
+                        <div class="u-form-email u-form-group u-label-top">
+                            <label for="year" class="u-label u-label-4">Год</label>
+                            <input type="text" style="border-radius: 5px;" id="year" name="year" class="u-input u-input-rectangle u-text-black u-white u-input-4" required="">
+                        </div>
+                        <div class="u-form-group u-form-select u-label-top">
+                            <label for="ganr" class="u-label u-label-5">Жанр</label>
+                            <div class="u-form-select-wrapper">
+                                <select id="ganr" style="border-radius: 5px;" name="ganr" class="u-input u-input-rectangle u-text-black u-white u-input-5" required="required">
+                                    <option selected="{{ choice.0 }}">Выберите жанр</option>
+                                    <option value="{{ choice.0 }}">Прикладная и научно-популярная литература</option>
+                                    <option value="{{ choice.1 }}">Универсально-справочная литература</option>
+                                    <option value="{{ choice.2 }}">Художественная литература</option>
+                                    <option value="{{ choice.3 }}">Журналы</option>
+                                    <option value="{{ choice.4 }}">Учебно-методическая литература</option>
+                                    <option value="{{ choice.5 }}">Учебные пособия</option>
+                                    <option value="{{ choice.6 }}">Монография</option>
+                                </select>
+                                <svg class="u-caret u-caret-svg u-text-black" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                            </div>
+                        </div>
+                        <div class="u-form-group u-label-top u-form-group-6">
+                            <label for="desc" class="u-label u-label-6">Аннотация</label>
+                            <textarea type="text" style="border-radius: 5px;" id="desc" name="desc" class="u-input u-input-rectangle u-text-black u-white u-input-6" required="required"></textarea>
+                        </div>
+                        <div class="u-form-group u-label-top u-form-group-7">
+                            <label for="cover" class="u-label u-label-7">Обложка</label>
+                            <input type="file" id="myFile" name="cover" enctype="multipart/form-data">
+                        </div>
+                        <div class="u-form-group u-label-top u-form-group-7">
+                            <label for="pdf" class="u-label u-label-7">Файл</label>
+                            <input type="file" id="myFile" name="pdf" enctype="multipart/form-data">
+                        </div>
+                        <div class="u-align-center u-form-group u-form-submit u-label-top">
+                            <a style="border-radius: 5px;" class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-grey-80 u-border-hover-custom-color-10 u-btn u-btn-submit u-button-style u-hover-custom-color-10 u-text-active-white u-text-black u-text-hover-white u-white u-btn-1">Добавить</a>
+                            <input type="submit" class="u-form-control-hidden">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}

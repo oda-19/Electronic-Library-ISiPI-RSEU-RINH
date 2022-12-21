@@ -1,0 +1,102 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/allbooks.css' %}" media="screen">
+
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+
+    <section class="u-clearfix u-section-1">
+        <a href="{% url 'aabook_form' %}" style="border-radius: 5px; margin-left: auto; margin-right: auto;" class="u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-black u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-text-active-white u-text-hover-white u-white u-btn-1">Добавить книгу</a>
+    </section>
+
+    <section class="u-clearfix u-section-1">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <center><h3 style="
+  font-size: 1.875rem;
+  width: 814px;">Результаты поиска</h3></center>
+            <div class="u-align-center u-container-style u-products-item u-repeater-item">
+                {% if files %}
+                    <div class="card-body">
+                    <table class="table" id="dataTable" style="position: relative; left: -30px;">
+                        <thead style="background: #c3ac81;">
+                        <tr>
+                            <th scope="col">Обложка</th>
+                            <th scope="col">Название</th>
+                            <th scope="col">Автор</th>
+                            <th colspan="5">Функции</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for file in files %}
+                            <tr>
+                                <td>{% if file.cover %}
+                                    <img src="{{ file.cover.url }}" alt="{{ file.title }}" style="width:100px; height: 100px">
+                                {% else %}
+                                    <span class="text-muted">Нет обложки</span>
+                                {% endif %}</td>
+                                <td>{{ file.title }}</td>
+                                <td>{{ file.author }}</td>
+                                <td><a href="{{ file.pdf.url }}" target="_blank" style="margin: auto; margin-bottom: 30px; margin-top: 30px; border: #b57900; background: #b57900; color: #ffffff" class="btn btn-warning u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-text-active-white u-text-hover-white u-white u-btn-1">Читать</a></td>
+                                <td><a href="{{ file.pdf.url }}" style="margin: auto; margin-bottom: 30px; margin-top: 30px; border: #b57900; background: #b57900; color: #ffffff" download class="btn btn-warning u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-text-active-white u-text-hover-white u-white u-btn-1">Скачать</a></td>
+                                <td><a href="{% url 'avbook' file.pk %}" style="margin: auto; margin-bottom: 30px; margin-top: 30px; border: #b57900; background: #b57900; color: #ffffff" class="btn btn-warning u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-text-active-white u-text-hover-white u-white u-btn-1">Посмотреть</a></td>
+                                <td><a href="{% url 'aebook' file.pk %}" style="margin: auto; margin-bottom: 30px; margin-top: 30px; border: #b57900; background: #b57900; color: #ffffff" class="btn btn-warning u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-text-active-white u-text-hover-white u-white u-btn-1">Изменить</a></td>
+                                <td><a href="{% url 'adbook' file.pk %}" style="margin: auto; margin-bottom: 30px; margin-top: 30px; border: #b57900; background: #b57900; color: #ffffff" class="btn btn-warning u-active-custom-color-9 u-border-2 u-border-active-custom-color-9 u-border-hover-custom-color-10 u-btn u-button-style u-hover-custom-color-10 u-text-active-white u-text-hover-white u-white u-btn-1">Удалить</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {%else%}
+                    <h3 style="
+  font-size: 1.875rem;
+  width: 814px;
+  margin: 20px auto 0;" id="answer">По данному запросу ничего не найдено</h3>
+                    <style type="text/css">
+                        {
+                            display: none;
+                        }
+                    </style>
+                {%endif%}
+
+                {% if files.has_other_pages %}
+                    <ul class="pagination">
+                        {% if files.has_previous %}
+                            <li class="waves-effect"><a href="?page={{ files.previous_page_number }}
+{% if request.GET.query %}&query={{ request.GET.query }}
+{% endif %}"><i class="material-icons text-primary">&laquo;</i>
+                            </a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#!">
+                                <i class="material-icons text-primary">&laquo;</i>
+                            </a></li>
+                        {% endif %}
+                        {% for num in files.paginator.page_range %}
+                            {% if files.number == num %}
+                                <li class="active"><a href="#!">{{ num }}</a></li>
+                            {% else %}
+                                <li class="waves-effect"><a href="?page={{ num }}
+{% if request.GET.query %}&query={{ request.GET.query }}
+{% endif %}">{{ num }}
+                                </a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if files.has_next %}
+                            <li class="waves-effect"><a href="?page={{ files.next_page_number }}
+{% if request.GET.query %}&query={{ request.GET.query }}
+{% endif %}"><i class="material-icons">&raquo;</i>
+                            </a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#!"><i class="material-icons">&raquo;</i></a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block extrascripts %}
+    <script type="text/javascript"></script>
+{% endblock extrascripts %}

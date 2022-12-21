@@ -1,0 +1,26 @@
+{% extends 'bookstore/base.html' %}
+{% load static %}
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/detailnews.css' %}" media="screen">
+
+    <section class="u-clearfix u-valign-middle-lg u-valign-middle-md u-valign-middle-xl u-section-1">
+        <div class="u-container-style u-product u-white u-product-1">
+            <div class="u-container-layout u-valign-top-sm u-valign-top-xs u-container-layout-1">
+                <h2 class="u-product-control u-text u-text-default u-text-1">
+                    <a class="u-product-title-link" href="">{{ object.title }}</a>
+                </h2>
+                <div style="width: 780px; height: 400px; position: center; left: 140px;">
+                    <img alt="" class="u-image u-image-default u-product-control u-image-1" style="width: auto; height: 100%;" src="{{ object.cover.url }}">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="u-clearfix u-container-align-center u-custom-color-10 u-section-2">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <p class="u-align-justify-md u-align-justify-sm u-align-justify-xs u-text u-text-white u-text-2">{{ object.text }}</p>
+        </div>
+    </section>
+
+{% endblock %}
